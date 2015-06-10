@@ -92,6 +92,17 @@ uis.directive('uiSelect',
           }
         });
 
+        attrs.$observe('tagOnBlur', function() {
+          if(attrs.tagOnBlur !== undefined && attrs.tagOnBlur === 'true')
+          {
+              $select.tagOnBlur = true;
+          }
+          else
+          {
+              $select.tagOnBlur = false;            
+          }
+        });
+
         attrs.$observe('taggingLabel', function() {
           if(attrs.tagging !== undefined )
           {
