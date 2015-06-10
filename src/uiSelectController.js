@@ -463,6 +463,22 @@ uis.controller('uiSelectCtrl',
     }
 
   });
+  
+  //Allow tagging on blur
+  ctrl.searchInput.on('blur', function() {
+    if (ctrl.items.length > 0 || ctrl.tagging.isActivated) {
+        if ( ctrl.taggingTokens.isActivated ) {
+            $timeout(function() {
+              ctrl.searchInput.triggerHandler('tagged');
+              var newItem = ctrl.search;
+              if ( ctrl.tagging.fct ) {
+                newItem = ctrl.tagging.fct( newItem );
+              }
+              if (newItem) ctrl.select(newItem, true);
+            });
+          }
+        }
+    });
 
   // If tagging try to split by tokens and add items
   ctrl.searchInput.on('paste', function (e) {
