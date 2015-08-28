@@ -1,7 +1,7 @@
 /*!
  * ui-select
  * http://github.com/angular-ui/ui-select
- * Version: 0.12.0 - 2015-06-10T12:28:19.434Z
+ * Version: 0.12.0 - 2015-08-28T13:56:01.415Z
  * License: MIT
  */
 
@@ -865,17 +865,6 @@ uis.directive('uiSelect',
           }
         });
 
-        attrs.$observe('tagOnBlur', function() {
-          if(attrs.tagOnBlur !== undefined && attrs.tagOnBlur === 'true')
-          {
-              $select.tagOnBlur = true;
-          }
-          else
-          {
-              $select.tagOnBlur = false;            
-          }
-        });
-
         attrs.$observe('taggingLabel', function() {
           if(attrs.tagging !== undefined )
           {
@@ -895,6 +884,18 @@ uis.directive('uiSelect',
           if (attrs.tagging !== undefined) {
             var tokens = attrs.taggingTokens !== undefined ? attrs.taggingTokens.split('|') : [',','ENTER'];
             $select.taggingTokens = {isActivated: true, tokens: tokens };
+          }
+        });
+        
+        //check if tag-on-blur is enabled
+        attrs.$observe('tagOnBlur', function() {
+          if(attrs.tagOnBlur !== undefined && attrs.tagOnBlur === 'true')
+          {
+              $select.tagOnBlur = true;
+          }
+          else
+          {
+              $select.tagOnBlur = false;            
           }
         });
 
