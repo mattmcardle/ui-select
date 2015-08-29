@@ -1,7 +1,7 @@
 /*!
  * ui-select
  * http://github.com/angular-ui/ui-select
- * Version: 0.12.0 - 2015-08-28T17:45:01.925Z
+ * Version: 0.12.1 - 2015-07-28T03:50:59.076Z
  * License: MIT
  */
 
@@ -700,20 +700,6 @@ uis.controller('uiSelectCtrl',
     }
 
   });
-  
-  //Allow tagging on blur
-  ctrl.searchInput.on('blur', function() {
-    if ((ctrl.items.length > 0 || ctrl.tagging.isActivated) && ctrl.tagOnBlur) {
-          $timeout(function() {
-            ctrl.searchInput.triggerHandler('tagged');
-            var newItem = ctrl.search;
-            if ( ctrl.tagging.fct ) {
-              newItem = ctrl.tagging.fct( newItem );
-            }
-            if (newItem) ctrl.select(newItem, true);
-          });
-        }
-    });
 
   // If tagging try to split by tokens and add items
   ctrl.searchInput.on('paste', function (e) {
@@ -886,18 +872,6 @@ uis.directive('uiSelect',
             $select.taggingTokens = {isActivated: true, tokens: tokens };
           }
         });
-        
-        //check if tag-on-blur is enabled
-        attrs.$observe('tagOnBlur', function() {
-          if(attrs.tagOnBlur !== undefined && attrs.tagOnBlur === 'true')
-          {
-              $select.tagOnBlur = true;
-          }
-          else
-          {
-              $select.tagOnBlur = false;            
-          }
-        });
 
         //Automatically gets focus when loaded
         if (angular.isDefined(attrs.autofocus)){
@@ -1047,7 +1021,7 @@ uis.directive('uiSelect',
             }
 
             // Hide the dropdown so there is no flicker until $timeout is done executing.
-            dropdown[0].style.visibility = 'hidden';
+            dropdown[0].style.opacity = 0;
 
             // Delay positioning the dropdown until all choices have been added so its height is correct.
             $timeout(function(){
@@ -1062,7 +1036,7 @@ uis.directive('uiSelect',
               }
 
               // Display the dropdown once it has been positioned.
-              dropdown[0].style.visibility = '';
+              dropdown[0].style.opacity = 1;
             });
           } else {
               if (dropdown === null) {

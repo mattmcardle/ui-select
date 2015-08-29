@@ -44,6 +44,9 @@ uis.directive('uiSelect',
         $select.onSelectCallback = $parse(attrs.onSelect);
         $select.onRemoveCallback = $parse(attrs.onRemove);
         
+        //Limit the number of selections allowed
+        $select.limit = (angular.isDefined(attrs.limit)) ? parseInt(attrs.limit, 10) : undefined;
+
         //Set reference to ngModel from uiSelectCtrl
         $select.ngModel = ngModel;
 
@@ -158,8 +161,8 @@ uis.directive('uiSelect',
           if (!contains && !$select.clickTriggeredSelect) {
             //Will lose focus only with certain targets
             var focusableControls = ['input','button','textarea'];
-            var targetScope = angular.element(e.target).scope(); //To check if target is other ui-select
-            var skipFocusser = targetScope && targetScope.$select && targetScope.$select !== $select; //To check if target is other ui-select
+            var targetController = angular.element(e.target).controller('uiSelect'); //To check if target is other ui-select
+            var skipFocusser = targetController && targetController !== $select; //To check if target is other ui-select
             if (!skipFocusser) skipFocusser =  ~focusableControls.indexOf(e.target.tagName.toLowerCase()); //Check if target is input, button or textarea
             $select.close(skipFocusser);
             scope.$digest();
@@ -274,7 +277,7 @@ uis.directive('uiSelect',
             }
 
             // Hide the dropdown so there is no flicker until $timeout is done executing.
-            dropdown[0].style.visibility = 'hidden';
+            dropdown[0].style.opacity = 0;
 
             // Delay positioning the dropdown until all choices have been added so its height is correct.
             $timeout(function(){
@@ -289,7 +292,7 @@ uis.directive('uiSelect',
               }
 
               // Display the dropdown once it has been positioned.
-              dropdown[0].style.visibility = '';
+              dropdown[0].style.opacity = 1;
             });
           } else {
               if (dropdown === null) {
