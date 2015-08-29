@@ -150,6 +150,7 @@ app.controller('DemoCtrl', function($scope, $http, $timeout, $interval) {
   $scope.multipleDemo = {};
   $scope.multipleDemo.colors = ['Blue','Red'];
   $scope.multipleDemo.colors2 = ['Blue','Red'];
+  $scope.multipleDemo.colors3 = ['Blue','Red'];
   $scope.multipleDemo.selectedPeople = [$scope.people[5], $scope.people[4]];
   $scope.multipleDemo.selectedPeople2 = $scope.multipleDemo.selectedPeople;
   $scope.multipleDemo.selectedPeopleWithGroupBy = [$scope.people[8], $scope.people[6]];
