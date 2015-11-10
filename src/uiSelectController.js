@@ -337,7 +337,8 @@ uis.controller('uiSelectCtrl',
   ctrl.close = function(skipFocusser) {
     if (!ctrl.open) return;
     if (ctrl.ngModel && ctrl.ngModel.$setTouched) ctrl.ngModel.$setTouched();
-    _resetSearchInput();
+    if(!ctrl.tagOnBlur)
+      _resetSearchInput();
     ctrl.open = false;
 
     $scope.$broadcast('uis:close', skipFocusser);
