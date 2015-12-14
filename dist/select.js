@@ -1,7 +1,7 @@
 /*!
  * ui-select
  * http://github.com/angular-ui/ui-select
- * Version: 0.13.2 - 2015-11-10T16:53:10.480Z
+ * Version: 0.13.2 - 2015-12-14T16:28:30.972Z
  * License: MIT
  */
 
@@ -506,6 +506,12 @@ uis.controller('uiSelectCtrl',
 
   // When the user selects an item with ENTER or clicks the dropdown
   ctrl.select = function(item, skipFocusser, $event) {
+    
+    // check if the user clicked on an option
+    if ($event && $event.currentTarget.classList.contains('ui-select-choices-row')) {
+      ctrl.activeIndex = +($event.currentTarget.id.substr(24));
+    }
+    
     if (item === undefined || !item._uiSelectChoiceDisabled) {
 
       if ( ! ctrl.items && ! ctrl.search ) return;

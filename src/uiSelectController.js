@@ -267,6 +267,12 @@ uis.controller('uiSelectCtrl',
 
   // When the user selects an item with ENTER or clicks the dropdown
   ctrl.select = function(item, skipFocusser, $event) {
+    
+    // check if the user clicked on an option
+    if ($event && $event.currentTarget.classList.contains('ui-select-choices-row')) {
+      ctrl.activeIndex = +($event.currentTarget.id.substr(24));
+    }
+    
     if (item === undefined || !item._uiSelectChoiceDisabled) {
 
       if ( ! ctrl.items && ! ctrl.search ) return;
