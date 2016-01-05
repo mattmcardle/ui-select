@@ -270,7 +270,7 @@ uis.controller('uiSelectCtrl',
     
     // check if the user clicked on an option
     if ($event && $event.currentTarget.classList.contains('ui-select-choices-row')) {
-      ctrl.activeIndex = +($event.currentTarget.id.substr(24));
+      ctrl.activeIndex = +($event.currentTarget.id.split('-').pop());
     }
     
     if (item === undefined || !item._uiSelectChoiceDisabled) {
